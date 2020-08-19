@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="scheduler">
+<typeAlias alias="scheduler" type="yjc.wdb.safe.bean.SchedulerBean"/>
+<typeAlias alias="children" type="yjc.wdb.safe.bean.ChildrenBean"/>
+
+   <insert id="insertScheduler" parameterClass="scheduler">
+		insert into scheduler(date_num,s_id,ch_name,start_time,notice_time,e_name,startpoint) 
+					values(safe_seq.nextval,#s_id#,#ch_name#,sysdate,sysdate,#e_name#,#startpoint#)
+   </insert>
+   
+ 	<select id="SchedulerList" parameterClass="String" resultClass="scheduler" remapResults="true">
+   		select * from
+			(select t.*, rownum rnum
+			 from 	 
+				(select * from scheduler where ch_name = #s_id# 
+				order by start_time desc) t
+			 )	 
+		 where rnum &gt;= 0 and rnum &lt;= 3
+  		
+   </select>
+   
+   <select id="selectBoard" parameterClass="String" resultClass="children">
+   		select * from safe_board where category = 1 and notice = 1 and id = #s_id#
+   </select>
+   
+   <select id="latelyScheduler" parameterClass="String" resultClass="scheduler">
+   		select * from scheduler where notice_time = (select max(notice_time) from scheduler where s_id = #s_id#)
+   </select>
+  
+   
+   <update id="updateGetout_time" parameterClass="scheduler">
+   		update scheduler set end_time = sysdate, attendance = 'OK', endpoint= #endpoint# where date_num = #date_num#
+   </update>
+   
+   
+    <select id="selectdate" parameterClass="scheduler" resultClass="scheduler">
+   		select t.* from (select * from scheduler where to_char(notice_time,'YYYY-MM-DD') = #no_date#)t where ch_name = #s_id# order by start_time desc
+    </select>
+   
+  
+</sqlMap>

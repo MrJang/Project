@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+   
+   
+   
+   <sqlMap namespace = "d_shop">
+  
+   <typeAlias alias = "d_shop" type = "yjc.spring.bean.d_shop"/>
+   <typeAlias alias = "product" type = "yjc.spring.bean.product"/>
+   <typeAlias alias = "Member" type = "yjc.spring.bean.Member"/>
+   
+   <select id = "findmemid"  parameterClass="int" resultClass = "String">
+     SELECT mem_id from member where mem_num=(select mem_num from designer where des_num=#des_num#)
+   </select>
+   
+<!--  쇼핑 -->
+   <select id = "selectshopping"  parameterClass="int" resultClass = "product">
+      SELECT * FROM product where des_num=#des_num# ORDER BY pro_date desc
+   </select>
+   
+   <select id = "selectcateshopping"  parameterClass="product" resultClass = "product">
+      SELECT * FROM product where des_num=#des_num# and pro_category=#pro_category# ORDER BY pro_date desc
+   </select>
+   
+<!--     로고 -->
+    <select id = "findLogo"  parameterClass="int" resultClass = "string">
+      SELECT dsh_logo from dsh_bl where des_num=#re_des_num#
+   </select>
+   
+   <insert id = "insert_dsh_logo" parameterClass = "Member">
+   		insert into dsh_bl(mem_id,dsh_logo,dsh_back,des_num)values(#mem_id#,'null.jpg','bg_null.jpg',#des_num#)
+   </insert>
+   
+   <update id = "update_dsh_logo"  parameterClass="d_shop">
+      update dsh_bl set dsh_logo=#dsh_logo# where des_num=#des_num#
+   </update>
+   
+<!--     배경 -->
+   <select id = "findBack"  parameterClass="int" resultClass = "string">
+      SELECT dsh_back from dsh_bl where des_num=#re_des_num#
+   </select>
+   
+   <update id = "update_dsh_back"  parameterClass="d_shop">
+      update dsh_bl set dsh_back=#dsh_back# where des_num=#des_num#
+   </update>
+ 
+<!--    게시판 -->
+   <insert id = "insertd_shop" parameterClass = "d_shop">
+   insert into dsh_board(dsh_boardnum, dsh_category, dsh_date, dsh_writer, dsh_title, dsh_content,des_num)values(dsh_board_seq.NEXTVAL,#dsh_category#,sysdate,#dsh_writer#,#dsh_title#,#dsh_content#,#des_num#)
+   </insert>
+   
+   <delete id = "deleteDsh_boardByNum" parameterClass = "int">
+      delete from dsh_board where dsh_boardnum = #dsh_boardnum#
+   </delete>
+   
+   <select id = "findGBoards"  parameterClass="int" resultClass = "d_shop">
+      SELECT * FROM dsh_board where des_num=#des_num# and dsh_category =1 ORDER BY dsh_boardnum desc
+   </select>
+ 
+   <select id = "findQBoards" parameterClass="int" resultClass = "d_shop">
+      SELECT * FROM dsh_board where des_num=#des_num# and dsh_category =2 ORDER BY dsh_boardnum desc
+   </select>
+   
+   <select id = "findInfoBoards"  parameterClass="int" resultClass = "d_shop">
+      select * from dsh_board where dsh_boardnum=#dsh_boardnum#
+   </select>
+   
+   <update id = "updateDsh_boardByNum" parameterClass = "d_shop">
+      UPDATE dsh_board SET dsh_title = #dsh_title#, dsh_content = #dsh_content#, dsh_date = sysdate, dsh_category = #dsh_category#
+      WHERE dsh_boardnum = #dsh_boardnum#
+   </update>
+   
+<!--주문관리 -->
+   <select id = "findOBoards"  parameterClass="int" resultClass = "d_shop">
+      SELECT * FROM purchase where des_num =#re_des_num# ORDER BY P_date desc
+   </select>
+   
+   <select id = "findDes_num"  parameterClass="int" resultClass = "int">
+      select des_num from designer where mem_num =#mem_num#
+   </select>
+  
+   <select id = "findDes_sales"  parameterClass="int" resultClass = "d_shop">
+      select des_num,p_date,sum(p_price)as"day_sales" from purchase  group by p_date,des_num,p_status having des_num=#re_des_num# and p_status='거래완료'  order by p_date desc
+   </select>
+ 
+ 	<update id = "moneyEnter" parameterClass = "int">
+      UPDATE purchase SET p_status = '입금완료'WHERE p_num = #p_num#
+   </update>
+   
+   <update id = "moneyWait" parameterClass = "int">
+      UPDATE purchase SET p_status = '입금대기'WHERE p_num = #p_num#
+   </update>
+   
+    <update id = "deliver" parameterClass = "int">
+      UPDATE purchase SET p_status = '배송중'WHERE p_num = #p_num#
+   </update>
+   
+    <select id = "findStatus"  parameterClass="int" resultClass = "String">
+      select P_status from purchase where p_num =#p_num#
+   </select>
+  
+</sqlMap>

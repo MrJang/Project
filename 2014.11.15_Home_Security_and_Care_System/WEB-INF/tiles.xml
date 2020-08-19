@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC      
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"    
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+<definition name="base.definition" template="/WEB-INF/main/safe_Index.jsp">
+	<put-attribute name="header" value="/WEB-INF/main/safe_header.jsp"/>
+	<put-attribute name="safe_body" value=""/>
+	<put-attribute name="left" value=""/>
+	<put-attribute name="all_body" value=""/>
+	
+</definition>
+
+
+<definition name="mobile" template="/WEB-INF/main/m_Index.jsp">
+	<put-attribute name="m_header" value="/WEB-INF/main/m_header.jsp"/>
+	<put-attribute name="m_body" value="/WEB-INF/main/m_body.jsp"/>
+	<put-attribute name="m_footer" value="/WEB-INF/main/m_footer.jsp"/>
+	
+</definition>
+
+
+
+<definition name=".*" extends="base.definition">
+	<put-attribute name="all_body" value= "/WEB-INF/main/main_all.jsp"/>
+	
+</definition>
+
+
+<definition name="v_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/view/{1}.jsp"/>
+	<put-attribute name="left" value="/WEB-INF/view/view_left.jsp"/>
+	
+</definition>
+
+<definition name="c_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/children/{1}.jsp"/>
+	<put-attribute name="left" value= "/WEB-INF/children/children_left.jsp"/>
+	
+</definition>
+
+<definition name="r_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/review/{1}.jsp"/>
+	<put-attribute name="left" value= "/WEB-INF/cafe/cafe_left.jsp"/>
+	
+</definition>
+
+<definition name="f_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/female/{1}.jsp"/>
+	<put-attribute name="left" value= "/WEB-INF/female/female_left.jsp"/>
+	
+</definition>
+
+<definition name="p_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/mobile/{1}.jsp"/>
+	<put-attribute name="left" value= "/WEB-INF/female/female_left.jsp"/>
+
+</definition>
+
+<definition name="s_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/scheduler/{1}.jsp"/>
+	<put-attribute name="left" value= "/WEB-INF/children/children_left.jsp"/>
+	
+</definition>
+
+
+<definition name="cafe_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/cafe/{1}.jsp"/>
+	<put-attribute name="left" value= "/WEB-INF/cafe/cafe_left.jsp"/>
+	
+</definition>
+
+<definition name="cmain_*" extends="base.definition">
+	<put-attribute name="all_body" value= "/WEB-INF/cafe/{1}.jsp"/>
+	
+</definition>
+
+<definition name="cj_*" extends="base.definition">
+	<put-attribute name="safe_body" value= "/WEB-INF/cafe/{1}.jsp"/>
+	
+</definition>
+
+<definition name="*.main" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/main/{1}.jsp"/>
+</definition>
+
+<definition name="*.member" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/view/{1}.jsp"/>
+</definition>
+
+<definition name="*.children" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/children/{1}.jsp"/>
+	
+</definition>
+
+<definition name="*.review" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/review/{1}.jsp"/>
+</definition>
+
+<definition name="*.female" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/female/{1}.jsp"/>
+</definition>
+
+<definition name="*.mobile" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/mobile/{1}.jsp"/>
+</definition>
+
+<definition name="*.message" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/message/{1}.jsp"/>
+</definition>
+
+<definition name="*.scheduler" extends="mobile">
+	<put-attribute name="m_body" value= "/WEB-INF/scheduler/{1}.jsp"/>
+</definition>
+
+
+
+<!-- .*은 /main폴더 v_* /view폴더 c_* 은 /children r_*은 /review -->
+
+
+
+</tiles-definitions>

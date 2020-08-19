@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+<mvc:annotation-driven/>
+
+<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="20971520"/>
+</bean>
+
+
+<context:component-scan base-package="yjc.wdb.safe.controller"/>
+
+
+<bean id = "tilesViewResolver" class = "org.springframework.web.servlet.view.UrlBasedViewResolver">
+	<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/> 
+ 	<property name="order" value="1"/> 
+</bean>
+
+<bean id ="tilesConfigurer" class ="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+	<property name="definitions" value="/WEB-INF/tiles.xml"/>
+</bean>
+
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<!--  <property name="prefix" value="/WEB-INF/view/"></property> -->
+<!--  <property name="suffix" value=".jsp"></property> -->
+ <property name="order" value="2"/>
+</bean>
+
+<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	<property name="messageConverters">
+		<list>
+			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+		</list>
+	</property>
+
+</bean>
+
+
+
+<mvc:resources location="/jquery.mobile/" mapping="/jquery.mobile/**" />
+<mvc:resources location="/ui/" mapping="/ui/**" />
+<mvc:resources location="/cordova/" mapping="/cordova/**" />
+
+
+</beans>

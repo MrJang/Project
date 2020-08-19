@@ -1,0 +1,49 @@
+body{
+	
+}
+
+#wrapper{
+	color:#000000;
+	font-family:tahoma;
+	font-size:14px;
+	margin:0 auto;
+	width:1200px;
+	height:1000px;
+	margin-top:50px;
+}
+
+#wrapper a{
+	cursor:pointer;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+.box {
+    background-color: #ffffff;
+    color: #888888;
+    height: auto;
+    left: 100%;
+    padding: 20px;
+    position: fixed;
+    right: 30%;
+    top: 25%;
+    width: 555px;
+    z-index: 101;
+	border:5px solid #888888;
+	border-radius:10px;
+	-moz-border-radius:10px;
+}
+
+
+
+a.boxclose {
+    background: url("/SafeProject/safe/index.jsp") repeat scroll left top transparent;
+    cursor: pointer;
+    float: right;
+    height: 24px;
+    left: 30px;
+    position: relative;
+    top: -33px;
+    width: 26px;
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "Request">
+   <typeAlias alias = "Request" type = "yjc.spring.bean.Request"/>
+    
+   
+   <insert id = "insertRequest" parameterClass = "Request">
+      INSERT INTO Request(req_name, req_sender,req_receiver, req_content, req_img, req_date, req_num, req_category, req_price, size1, size2, size3, size4, size5, size6) VALUES (#req_name#, #req_sender#, #req_receiver#, #req_content#, #req_img#, #req_date#, num_seq.nextval, #req_category#, #req_price#, #size1#, #size2#, #size3#, #size4#, #size5#, #size6#)
+   </insert>
+   
+   <select id = "selectAllRequest_receiver"   parameterClass = "String" resultClass = "Request">
+   	  SELECT * FROM Request where req_receiver = #req_receiver# order by req_date desc
+   </select>
+   
+   <select id = "selectAllRequest_sender"   parameterClass = "String" resultClass = "Request">
+   	  SELECT * FROM Request where req_sender = #req_sender# order by req_date desc
+   </select>
+   
+   <select id ="selectMaxReq_Num" resultClass="int" >
+   	  SELECT max(req_num) from Request
+   </select>
+   
+   <select id ="selectCountReq_Num" resultClass="int" >
+      SELECT count(req_num) from Request
+   </select>
+   
+   <select id ="check_req" parameterClass = "String" resultClass="int" >
+      SELECT count(*) FROM Request where req_sender=#req_sender#
+   </select>
+   
+   <select id ="check_req1" parameterClass = "String" resultClass="int" >
+      SELECT count(*) FROM Request where req_receiver=#req_receiver#
+   </select>
+   
+   <delete id = "del_req" parameterClass = "String">
+      delete from Request where req_num = #req_num#
+   </delete>
+   
+   <update id = "req_process_update" parameterClass = "Request">
+      UPDATE Request SET req_process = #req_process#
+      WHERE req_num = #req_num#
+   </update>
+   
+   <select id ="getreq"  parameterClass="int" resultClass="Request" >
+      SELECT * FROM Request 
+      WHERE req_num = #req_num#
+   </select>
+   
+   <update id = "feedbackupdate" parameterClass = "Request">
+      UPDATE Request SET feedback = #feedback#, feedback_date = #feedback_date#, req_process = #req_process#, req_img = #req_img#, req_category = #req_category#, req_price = #req_price#
+      WHERE req_num = #req_num#
+   </update>
+   
+   <update id = "req_content_update" parameterClass = "Request">
+      UPDATE Request SET req_content = #req_content#, req_content_date = #req_content_date#, req_img = #req_img#, req_category = #req_category#
+      WHERE req_num = #req_num#
+   </update>
+   
+   <select id ="r_list"   resultClass="Request" >
+   	SELECT req_receiver, count(req_receiver) r_count FROM Request GROUP BY req_receiver ORDER BY r_count DESC
+   </select>
+   
+   <select id = "if_my_request_count" parameterClass="String" resultClass="Integer">
+   	  SELECT count(req_num) FROM Request WHERE req_receiver = #mem_id#
+   </select>
+   
+   <select id = "my_request_count" parameterClass="String" resultClass="Integer">
+   	  SELECT count(req_num) FROM Request WHERE req_receiver = #mem_id#
+   </select>
+   
+   <select id = "selectMyCommission" parameterClass = "String" resultClass = "Request">
+      SELECT * FROM Request WHERE  req_receiver = #mem_id# AND req_process NOT IN ('10') ORDER BY req_date desc 
+   </select>
+   
+   <select id = "selectMyCommission2" parameterClass = "String" resultClass = "Request">
+      SELECT * FROM Request WHERE  req_sender = #mem_id# AND req_process NOT IN ('10') ORDER BY req_date desc 
+   </select>
+   
+   <select id = "new_req_count" parameterClass = "String" resultClass = "int">
+      SELECT count(*) FROM Request WHERE req_process = '0' AND req_receiver =  #req_receiver#
+   </select>
+   
+   <select id = "modified_req_count1" parameterClass = "String" resultClass = "int">
+      SELECT count(*) FROM Request WHERE sender_mod = '1' AND req_receiver =  #req_receiver#
+   </select>
+   
+   <select id = "modified_req_count2" parameterClass = "String" resultClass = "int">
+      SELECT count(*) FROM Request WHERE receiver_mod = '1' AND req_sender =  #req_sender#
+   </select>
+   
+   <update id = "set_sender_mod_1" parameterClass = "int">
+      UPDATE Request SET sender_mod = '1'
+      WHERE req_num = #req_num#
+   </update>
+   
+   <update id = "set_sender_mod_0" parameterClass = "int">
+      UPDATE Request SET sender_mod = '0'
+      WHERE req_num = #req_num#
+   </update>
+   
+   <update id = "set_receiver_mod_1" parameterClass = "int">
+      UPDATE Request SET receiver_mod = '1'
+      WHERE req_num = #req_num#
+   </update>
+   
+   <update id = "set_receiver_mod_0" parameterClass = "int">
+      UPDATE Request SET receiver_mod = '0'
+      WHERE req_num = #req_num#
+   </update>
+   
+</sqlMap>

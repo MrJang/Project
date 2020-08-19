@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+	<sqlMap namespace="member">
+		<typeAlias alias="member" type="yjc.wdb.safe.bean.memberBean"/>
+		<typeAlias alias="zipcode" type="yjc.wdb.safe.bean.zipcodeBean"/>
+		<typeAlias alias="home" type="yjc.wdb.safe.bean.HomSecurityBean"/>
+		
+	<select id="loginmember" parameterClass="String" resultClass="member">
+		select * from safe_member where id=#id#
+	</select>
+		  
+	<insert id="insertmember" parameterClass="member">
+		insert into safe_member(id,password,name,phone,address,email,profile,category) 
+					values(#id#,#password#,#name#,#phone#,#address#,#email#,#profile#,#category#)
+	</insert>
+	
+	<insert id="children_insert" parameterClass="member">
+		insert into safe_member(id,password,e_name,category) 
+					values(#id#,#password#,#e_name#,#category#)
+	</insert>
+	
+	
+	
+	<insert id="insertmember_e" parameterClass="member">
+		insert into safe_member(id,password,name,phone,address,e_name,email,profile,category) 
+					values(#id#,#password#,#name#,#phone#,#address#,#e_name#,#email#,#profile#,#category#)
+	</insert>
+	
+	
+	
+	<update id="updateCategory" parameterClass="member">
+		update safe_member set category=#category# where id=#id#
+	</update>
+	
+	
+	<delete id="deletemember" parameterClass="String">
+		delete from safe_member where id=#id#
+	</delete>
+	
+	<select id="findmembers" resultClass="member">
+		select * from safe_member order by id
+	</select>
+	
+	<select id="findmemberById" parameterClass="String" resultClass="member">
+		select * from safe_member where id = #id#
+	</select>
+	
+	<update id="updatemember" parameterClass="member">
+		update safe_member set password=#password#,name=#name#,phone=#phone#,e_name=#e_name#,email=#email#,address=#address#,profile=#profile# where id=#id#
+	</update>
+	
+	<select id="zipcode" parameterClass="String" resultClass="zipcode">
+		select * from zipcode where dong like #%dong%#
+	</select>
+	
+	<insert id="RightOn" parameterClass="home">
+		insert into safe_board(num,id,notice,reg_date,category) 
+					values(safe_seq.nextval,#id#,#notice#,sysdate,#category#)
+	</insert>
+	<select id="homeRecent" resultClass="home">
+		select * from safe_board where num=(select max(num) from safe_board where category = #category# and  id = #id# and notice=#notice#)
+	</select>
+	<update id="homeRecentNum" parameterClass="home">
+		update safe_board set notice=#notice#,regdate=sysdate where num=#num#
+	</update>
+		
+		
+		<!-- 이곳은 생활방범 내역 보는 곳 -->
+		<select id="selectHome" parameterClass="String" resultClass="home">
+		select * from
+			(select t.*, rownum rnum
+			 from 	 
+				(select * from safe_board 
+				 where category = 30 and id= #id# order by reg_date desc) t
+			 )	 
+		 where rnum &gt;= 0 and rnum &lt;= 2
+		
+		</select>
+		<select id="selectHome2" parameterClass="String" resultClass="home">
+		select * from
+			(select t.*, rownum rnum
+			 from 	 
+				(select * from safe_board 
+				 where category = 31 and id= #id# order by reg_date desc) t
+			 )	 
+		 where rnum &gt;= 0 and rnum &lt;= 2
+		
+		
+	</select>
+		<select id="selectHome3" parameterClass="String" resultClass="home">
+		select * from
+			(select t.*, rownum rnum
+			 from 	 
+				(select * from safe_board 
+				 where category = 32 and id= #id# order by reg_date desc) t
+			 )	 
+		 where rnum &gt;= 0 and rnum &lt;= 2
+	</select> 
+		
+	<select id="selectbolt"  resultClass="home">
+		select   to_number(((regdate -reg_date ) * (24*60*60))) as time from safe_board where category=30 and id=#id#  order by reg_date desc
+	</select> 
+	
+	<update id="insert_reg" parameterClass="member">
+      update safe_member set reg_id = #reg_id# where id = #id#
+   </update>
+	
+	<update id="homeSe" parameterClass="String"> 
+	update safe_member set home = 'yes' where id = #id#
+	</update>
+	
+	</sqlMap>

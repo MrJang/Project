@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+    <sqlMap namespace = "Designer">
+     <typeAlias alias = "Designer" type = "yjc.spring.bean.Designer"/>
+	
+	
+	<select id = "select_des_num" parameterClass = "Integer" resultClass = "Integer">
+      SELECT des_num FROM designer
+      WHERE mem_num= #mem_num#
+    </select>
+    
+    <select id = "selectAll_des_num" parameterClass = "int" resultClass = "Designer">
+      SELECT * FROM designer
+      WHERE mem_num= #mem_num#
+    </select>
+    
+    <update id = "update_account" parameterClass = "Member" >
+      UPDATE Designer SET des_account= #account#
+      WHERE mem_num = #mem_num#
+    </update>
+    
+    <update id = "setDes_introduce" parameterClass = "Member" >
+      UPDATE Designer SET des_introduce = #des_introduce#
+      WHERE mem_num = #mem_num#
+    </update>
+    
+    <select id = "getDes_introduce" parameterClass = "int" resultClass = "String">
+      SELECT des_introduce FROM designer
+      WHERE des_num= #des_num#
+    </select>
+    
+	
+    
+    </sqlMap>

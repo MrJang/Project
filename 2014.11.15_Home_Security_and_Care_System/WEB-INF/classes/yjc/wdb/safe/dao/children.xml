@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<!-- 작성번호,id,제목,내용,출발지,목적지,시간,신청분류,특이사항,작성날짜,조회수,분류,별점 -->
+
+	
+<sqlMap namespace="children">
+	<typeAlias alias="children" type="yjc.wdb.safe.bean.ChildrenBean"/>
+	<typeAlias alias="PageInfo" type="yjc.wdb.safe.bean.PageInfo"/>
+	<typeAlias alias="member" type="yjc.wdb.safe.bean.memberBean"/>
+	<typeAlias alias="zipcode" type="yjc.wdb.safe.bean.zipcodeBean"/>
+	
+	<!--자녀안전귀가 신청, 업체 안전귀가 신청 -->
+	<!-- 신청분류 category가 1일경우는 개인의 신청분류 2일경우는 업체명이 적힘. -->
+	<insert id="insertChildren" parameterClass="children">
+		insert into safe_board(num,id,departure,destination,crime_time,member_count,request,reg_date,readcount,category) 
+				values(safe_seq.nextval,#id#,#departure#,#destination#,#crime_time#,#member_count#,#request#,sysdate,#readcount#,#category#)
+	</insert>
+	
+	<insert id="insertChildren_e" parameterClass="children">
+		insert into safe_board(num,id,departure,destination,crime_time,e_id,report,reg_date,readcount,start_date,end_date,e_num,ch_name,ch_pass,category) 
+				values(safe_seq.nextval,#id#,#departure#,#destination#,#crime_time#,#e_id#,#report#,sysdate,#readcount#,#start_date#,#end_date#,#e_num#,#ch_name#,#ch_pass#,#category#)
+	</insert>
+	
+	<delete id="deleteChildren" parameterClass="int">
+		delete from safe_board where num=#num#
+	</delete>
+	
+	<select id="findChildrenById" parameterClass="int" resultClass="children">
+		select * from safe_board where num = #num#
+	</select>
+	
+	<update id="updateChildren" parameterClass="children">
+		update safe_board set departure=#departure#,destination=#destination#,crime_time=#crime_time# where num=#num#
+	</update>
+	
+	<select id="c_zipcode" parameterClass="String" resultClass="zipcode">
+		select * from zipcode where dong like #%dong%#
+	</select>
+	
+	<!-- 신청내역 -->
+	<select id="requestSelect" parameterClass="String" resultClass="children">
+		select * from safe_board where e_id = #e_id# and category = 1
+	</select>
+	
+	<select id="p_requestSelect" parameterClass="String" resultClass="children">
+	select * from safe_board where id in (select e_id from safe_board where id= #id# and category = 1)
+	</select>
+	
+	<!-- 신청해지 -->
+	<update id="requestDelete" parameterClass="String">
+		update safe_board set e_id=null where id=#id# and category = 1
+	</update>
+	
+	<!-- 별점 평균 -->
+	
+	<select id="star_sum" resultClass="String" parameterClass="children">
+		select to_char(sum(to_number(s_star))) from safe_board where e_id = #id# and board_cate = 1
+	</select>
+	
+	<select id="star_count" resultClass="int" parameterClass="String">
+		select count(*) from safe_board where board_cate=1 and e_id = #id#
+	</select>
+	
+	<!-- readcount 설정부분 -->
+	<update id="readcount" parameterClass="int">
+		update safe_board set readcount= readcount+1 where num=#num#
+	</update>
+	
+	
+	<!-- 자녀,업체 신청 리스트 이전,다음 -->
+	<select id="getCountChildren" resultClass="int">
+		select count(*) from safe_board where category = 1 or category = 2
+	</select>
+	
+	
+	
+	
+	<!-- 자녀,업체 limit절 -->
+	<select id="getChildrens" parameterClass="PageInfo" resultClass="children">
+		select * from
+			(select t.*, rownum rnum
+			 from 	 
+				(select * from safe_board 
+				 where category = 2 and id=#id# order by reg_date) t
+			 )	 
+		 where rnum &gt;= #startRow# and rnum &lt;= #endRow#
+	</select>
+	
+	<!-- 업체검색 -->
+	<select id="e_search" parameterClass="PageInfo" resultClass="children">
+
+	select * from 
+		(select t.*, rownum rnum
+			from
+			(select * from (select * from safe_board where category = 2) 
+			where departure like #start# or destination like #end#) t
+			)
+	where rnum &gt;= #startRow# and rnum &lt;= #endRow#
+	</select>
+	
+<!-- 개인검색 -->
+	<select id="c_search" parameterClass="PageInfo" resultClass="children">
+
+	select * from 
+		(select t.*, rownum rnum
+			from
+			(select * from (select * from safe_board where category = 1) 
+			where departure like #start# or destination like #end#) t
+			)
+	where rnum &gt;= #startRow# and rnum &lt;= #endRow#
+	</select>
+	
+	
+	<!-- 추가 부분 -->
+	<!-- 업체 검색 부분 -->
+	<select id="select_date" parameterClass="String" resultClass="children">
+		select * from safe_board where id= (select max(e_id) from safe_board where category = 1 and id = #id#) and category=2 order by reg_date desc
+	</select>
+	
+	<select id="selectEnter" parameterClass="children" resultClass="children">
+		 select t.* from (select * from safe_board where departure like #start_date# and destination like #end_date#)t where category  = 2
+	</select>
+	
+	<select id="selectEnter_start" parameterClass="String" resultClass="children">
+		 select * from safe_board where category = 2 and departure like #start_date#
+	</select>
+	
+	<select id="selectEnter_end" parameterClass="children" resultClass="children">
+		 select * from safe_board where category = 2 and destination like #end_date#
+	</select>
+	
+	<update id="Entersuccess" parameterClass="int">
+		update safe_board set notice = '1' where num=#num#
+	</update>
+	
+	<update id="Enterdelete" parameterClass="int">
+		update safe_board set e_id='', e_num=0 where num=#num#
+	</update>
+	
+	<select id="EnterView" parameterClass="children" resultClass="children">
+		 select t.* from (select * from safe_board where category = 1 and e_id = #e_id# and e_num = #e_num# order by notice desc)t where to_date(end_date,'yyyy-mm-dd') > sysdate
+	</select>
+	
+	<select id="current_count" parameterClass="children" resultClass="int">
+		 select count(num) from safe_board where category = 1 and notice=1 and e_id = #id# and e_num = #num# order by notice desc
+	</select>
+	
+	<select id="CafeSelect" parameterClass="children" resultClass="Children">
+		 select * from safe_board where category = 1 and notice=1 and e_id = #e_id# and e_num = #e_num# order by notice desc
+	</select>
+	
+	<!-- 여기는 그룹 멤버 가입 시 가입이 되어 있으면 다음에 체크박스에 안뜨도록 하기 위한 cafe_select 업데이트 부분 -->
+	<update id="updateCafe_select" parameterClass="children">
+		update safe_board set cafe_select = #cafe_select# where id=#id#
+	</update>
+	
+	<select id="Enter_cafe" parameterClass="String" resultClass="children">
+		select * from safe_board where id = #id# and category = 2
+	</select>
+	
+	<select id="reg_date_create" parameterClass="int" resultClass="children">
+		select num,id,departure,destination,crime_time,request,reg_date+5 as reg_date,readcount,category,member_count from safe_board where num = #num#
+	</select>
+	
+	
+	<select id="children_all" parameterClass="children" resultClass="children">
+		select * from safe_board where id = #id# and category =#category#
+	</select>
+	
+	
+	
+</sqlMap>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+
+<sqlMap namespace="message">
+	<typeAlias alias="message" type="yjc.wdb.safe.bean.MessageBean"/>
+	<typeAlias alias="cafe_member" type="yjc.wdb.safe.bean.CafeMemberBean"/>
+	<typeAlias alias="cafe_board" type="yjc.wdb.safe.bean.CafeBoardBean"/>
+	<typeAlias alias="safe_cafe" type="yjc.wdb.safe.bean.CafeBean"/>
+	
+	<insert id="insertMessage" parameterClass="message">
+		insert into safe_message values(safe_seq.nextval,#send_id#,#write_id#,#m_content#,sysdate,#category#,#board_num#)
+	</insert>
+	
+<!-- 	보낸 쪽지함, 받는 쪽지함 둘다 -->
+	<select id="writeMessage" parameterClass="String" remapResults="true" resultClass="message">
+		select * from safe_message where write_id = #write_id#
+	</select>
+	
+	<select id="sendMessage" parameterClass="String" remapResults="true" resultClass="message">
+		select * from safe_message where send_id = #send_id#
+	</select>
+	
+	
+	<select id="MessageView" parameterClass="int" resultClass="message">
+		select * from safe_message where write_num = #write_num#
+	</select>
+	
+	<delete id="MessageDelete" parameterClass="int">
+		delete from safe_message where write_num=#write_num#
+	</delete>
+	
+	<!-- 신청확인 -->
+	<update id="selectchildren" parameterClass="message">
+		update safe_board set e_id=#write_id# where num = #board_num#
+	</update>
+	
+	<update id="e_selectchildren" parameterClass="message">
+		update safe_board set e_id=#send_id# where category = 1 and id = #write_id# 
+	</update>
+	
+	<update id="updateFe" parameterClass="message">
+      update safe_message set board_num=#board_num# where category = 2 and write_id = #write_id# and send_id=#send_id# 
+   </update>
+   <select id="selectMessage" parameterClass="String" remapResults="true" resultClass="message">
+		select * from safe_message  where write_id=#id#
+	</select>
+	<insert id="m_messageInsert" parameterClass="message">
+		insert into safe_message(write_num,send_id,write_id,m_content,reg_date,category) values (safe_seq.nextval,#send_id#,#write_id#,#m_content#,sysdate,#category#)
+	</insert>
+	
+	<select id="messageSelect" parameterClass="String" resultClass="cafe_board">
+	select e_id,cafe_select from safe_board where id = #id# and category = 1
+	</select>
+	
+	
+	<select id="messageSelect_e" parameterClass="String" resultClass="safe_cafe">
+	select * from safe_cafe where id = #id#
+	</select>
+	
+	<select id="cafe_memberSelect" parameterClass="int" resultClass="cafe_member">
+	select * from cafe_member where c_num = #cafe_select#
+	</select>
+	
+	
+</sqlMap>

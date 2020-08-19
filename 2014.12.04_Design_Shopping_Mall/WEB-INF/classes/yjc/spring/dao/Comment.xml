@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "Comment">
+   <typeAlias alias = "Comment" type = "yjc.spring.bean.Comment"/>
+      
+   <insert id = "insertComment" parameterClass = "Comment">
+      INSERT INTO Comment(id, name, content, num) VALUE(#id#, #name#, #content#, #num#)
+   </insert>
+   
+   <update id = "updateComment" parameterClass = "int">
+      update ID_REPOSITORY set VALUE = #nextId# where NAME='COMMENT'")
+   </update>
+   
+   <select id = "selectValue"  resultClass = "int">
+      select VALUE from ID_REPOSITORY where NAME='COMMENT'")
+   </select>
+   
+<!--    <delete id = "deleteAllComment"> -->
+<!--       delete from Comment -->
+<!--    </delete> -->
+<!--    <delete id = "deleteCommentByNum" parameterClass = "int"> -->
+<!--       delete from Comment where num = #num# -->
+<!--    </delete> -->
+<!--    <select id = "findCommentByNum" parameterClass = "int" resultClass = "Comment"> -->
+<!--       SELECT * FROM Comment  -->
+<!--       WHERE num = #num# -->
+<!--    </select> -->
+<!--    <select id ="findMaxNum" resultClass="int" > -->
+<!--    	  SELECT max(num) from Comment  -->
+<!--    </select> -->
+<!--    <select id ="findCountNum" resultClass="int" > -->
+<!--    	  SELECT count(num) from Comment -->
+<!--    </select> -->
+<!--    <update id = "updateReadCount" parameterClass = "int"> -->
+<!--       UPDATE Comment SET readcount=readcount+1  -->
+<!--       WHERE num = #num# -->
+<!--    </update> -->
+<!--    <update id = "update_re" parameterClass = "Comment"> -->
+<!--       UPDATE Comment SET re_step = re_step+1  -->
+<!--       where ref = #ref# and re_step > #re_step# -->
+<!--    </update> -->
+</sqlMap>

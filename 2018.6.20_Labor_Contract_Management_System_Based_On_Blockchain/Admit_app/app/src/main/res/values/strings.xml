@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Ethereum Smart Contract</string>
+    <string name="button2_textView">내 정보</string>
+    <string name="button2_editText1">이름:</string>
+    <string name="button2_editText2">생년월일:</string>
+    <string name="button2_editText3">계약일시:</string>
+    <string name="button2_editText4">아무거나:</string>
+    <string name="button3_textView">계약서Viewer</string>
+    <string name="Nonecontent">X</string>
+
+</resources>

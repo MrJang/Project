@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<sqlMap resource = "yjc/spring/dao/Member.xml"/>
+	<sqlMap resource = "yjc/spring/dao/Board.xml"/>
+	<sqlMap resource = "yjc/spring/dao/Comment.xml"/>
+	<sqlMap resource = "yjc/spring/dao/Canvas.xml"/>
+	<sqlMap resource = "yjc/spring/dao/Request.xml"/>
+	<sqlMap resource = "yjc/spring/dao/D_shop.xml"/>
+	<sqlMap resource = "yjc/spring/dao/product.xml"/>
+	<sqlMap resource = "yjc/spring/dao/Designer.xml"/>
+	<sqlMap resource = "yjc/spring/dao/Purchase.xml"/>
+	<sqlMap resource = "yjc/spring/dao/Cart.xml"/>
+</sqlMapConfig>

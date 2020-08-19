@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="police">
+	<typeAlias alias="police" type="yjc.wdb.safe.bean.policeBean"/>
+<select id="policeL" resultClass="police">
+	select * from police_list where p_name=#name#
+	</select>
+	<select id="police_mpolice" resultClass="police" parameterClass="int">
+	select * from police_member where m_police=#police# order by m_success desc
+	</select>
+		
+	<update id="PoMemberUpdate" parameterClass="String">
+		update police_member set m_success=2 where m_name = #name# 
+	</update>
+	<select id="policeSel" resultClass="police">
+	select * from police_member where m_name=#name#
+	</select>
+	<select id="Syslist" resultClass="police" parameterClass="int">
+	select * from police_list where p_num=#police#
+	</select>
+	<update id="MemberUpdatego" parameterClass="String">
+		update police_member set m_success=3 where m_name = #name# 
+	</update>
+	     <update id="deletepolice" parameterClass="String">
+      update police_member set m_success=1 where m_name=#name#
+   </update>
+</sqlMap>

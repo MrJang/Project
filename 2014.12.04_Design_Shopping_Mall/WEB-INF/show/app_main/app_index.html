@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SlidesJS Standard Code Example</title>
+  <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../example.css">
+  <link rel="stylesheet" href="../font-awesome.min.css">
+<!--   <link rel="stylesheet" href="../../../example.css"> -->
+<!--   <link rel="stylesheet" href="../../../font-awesome.min.css"> -->
+<style>
+
+    #slides {
+      display: none
+    }
+
+    #slides .slidesjs-navigation {
+      margin-top:5px;
+    }
+
+    a.slidesjs-next,
+    a.slidesjs-previous,
+    a.slidesjs-play,
+    a.slidesjs-stop {
+      background-image: url(img/btns-next-prev.png);
+      background-repeat: no-repeat;
+      display:block;
+      width:12px;
+      height:18px;
+      overflow: hidden;
+      text-indent: -9999px;
+      float: left;
+      margin-right:5px;
+    }
+
+    a.slidesjs-next {
+      margin-right:10px;
+      background-position: -12px 0;
+    }
+
+    a:hover.slidesjs-next {
+      background-position: -12px -18px;
+    }
+
+    a.slidesjs-previous {
+      background-position: 0 0;
+    }
+
+    a:hover.slidesjs-previous {
+      background-position: 0 -18px;
+    }
+
+    a.slidesjs-play {
+      width:15px;
+      background-position: -25px 0;
+    }
+
+    a:hover.slidesjs-play {
+      background-position: -25px -18px;
+    }
+
+    a.slidesjs-stop {
+      width:18px;
+      background-position: -41px 0;
+    }
+
+    a:hover.slidesjs-stop {
+      background-position: -41px -18px;
+    }
+
+    .slidesjs-pagination {
+      margin: 7px 0 0;
+      float: right;
+      list-style: none;
+    }
+
+    .slidesjs-pagination li {
+      float: left;
+      margin: 0 1px;
+    }
+
+    .slidesjs-pagination li a {
+      display: block;
+      width: 13px;
+      height: 0;
+      padding-top: 13px;
+      background-image: url(img/pagination.png);
+      background-position: 0 0;
+      float: left;
+      overflow: hidden;
+    }
+
+    .slidesjs-pagination li a.active,
+    .slidesjs-pagination li a:hover.active {
+      background-position: 0 -13px
+    }
+
+    .slidesjs-pagination li a:hover {
+      background-position: 0 -26px
+    }
+
+    #slides a:link,
+    #slides a:visited {
+      color: #333
+    }
+
+    #slides a:hover,
+    #slides a:active {
+      color: #9e2020
+    }
+
+    .navbar {
+      overflow: hidden
+    }
+  </style>
+  <!-- End SlidesJS Optional-->
+
+   <style>
+    #slides {
+      display: none
+      z-index: -1;
+    }
+
+    .container {
+      margin: 0 0;
+      z-index: -1;
+    }
+ 
+    .container {
+      width: 100%;
+      height: 30%;
+      
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="slides">
+      <img src="../resources/slide/main.png" style = "border : 0px solid #000000;-moz-border-radius:40px; -webkit-border-radius:40px; z-index: -1;">
+	  <img src="../resources/slide/nn1.png" style = "-moz-border-radius:40px; -webkit-border-radius:40px; z-index: -1;">
+      <img src="../resources/slide/nn2.png" style = "-moz-border-radius:40px; -webkit-border-radius:40px; z-index: -1;">
+      <img src="../resources/slide/nn3.png" style = "-moz-border-radius:40px; -webkit-border-radius:40px; z-index: -1;">
+      
+<!-- <img src="../resources/slide/example-slide-1.jpg" style = "border : 0px solid #000000;-moz-border-radius:40px; -webkit-border-radius:40px;z-index: -1;">   	   -->
+<!-- <img src="../resources/slide/example-slide-2.jpg" style = "border : 0px solid #000000;-moz-border-radius:40px; -webkit-border-radius:40px;z-index: -1;">       -->
+<!-- <img src="../resources/slide/example-slide-3.jpg" style = "border : 0px solid #000000;-moz-border-radius:40px; -webkit-border-radius:40px;z-index: -1;">       -->
+<!-- <img src="../resources/slide/example-slide-4.jpg" style = "border : 0px solid #000000;-moz-border-radius:40px; -webkit-border-radius:40px;z-index: -1;">       -->
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="../app_jquery.slides.min.js"></script>
+  <script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 1,
+        height: 1,
+        play: {
+        	
+          active: true,
+          auto: true,
+//           interval: 4000,
+          swap: false,
+          effect: "fade",
+          speed: 6000
+        }
+     
+      });
+    });
+  </script>
+</body>
+</html>

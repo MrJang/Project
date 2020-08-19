@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "Canvas">
+   <typeAlias alias = "Canvas" type = "yjc.spring.bean.Canvas"/>
+   <typeAlias alias = "Member" type = "yjc.spring.bean.Member"/>
+    
+   <insert id = "insertCanvas" parameterClass = "Canvas">
+      INSERT INTO Canvas(can_title, can_date, can_img, can_category, mem_id, can_num, mem_num) VALUES (#can_title#, #can_date#, #can_img#, #can_category#, #mem_id#, num_seq.nextval, #mem_num#)
+   </insert>
+   <select id = "selectAllCanvas"  resultClass = "Canvas">
+      SELECT * FROM Canvas ORDER BY can_num desc
+   </select>
+   <select id = "selectAllMyCanvas" parameterClass = "int" resultClass = "Canvas">
+      SELECT * FROM Canvas where mem_num = #mem_num# ORDER BY can_num desc 
+   </select>
+   <select id = "selectMyCanvas" parameterClass = "int" resultClass = "Canvas">
+      SELECT * FROM Canvas where mem_num = #mem_num# and can_category = '2' ORDER BY can_num desc 
+   </select>
+   <select id = "selectMyCapture" parameterClass = "int" resultClass = "Canvas">
+      SELECT * FROM Canvas where mem_num = #mem_num# and can_category = '1' ORDER BY can_num desc 
+   </select>
+   <select id = "findCanvasBycan_num" parameterClass = "int" resultClass = "Canvas">
+      SELECT * FROM Canvas WHERE can_num = #can_num#
+   </select>
+   <select id ="findMaxCan_Num" resultClass="int" >
+   	  SELECT max(can_num) from Canvas
+   </select>
+   <select id ="findCountCan_Num" resultClass="int" >
+      SELECT count(can_num) from Canvas
+   </select>
+   <update id = "updateCanvasBycan_num" parameterClass = "Canvas">
+      UPDATE Canvas SET can_title = #can_title#, can_date = #can_date#, can_img = #can_img#, can_category = #can_category# 
+      WHERE can_num = #can_num#
+   </update>
+   <delete id = "deleteCanvasBycan_num" parameterClass = "int">
+      delete from Canvas where can_num = #can_num#
+   </delete>
+   <select id = "c_list" resultClass = "Canvas">
+        SELECT m.mem_id,cnt.can_count FROM  
+    ( SELECT m.mem_num,COUNT(m.mem_num) can_count FROM canvas c, member m 
+      WHERE m.mem_num= c.mem_num AND m.mem_auth='1' 
+      GROUP BY m.mem_num ) cnt,member m where cnt.mem_num=m.mem_num 
+ 		ORDER BY cnt.can_count DESC
+   </select>
+   
+   
+   
+</sqlMap>

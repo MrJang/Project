@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+<context:property-placeholder location = "classpath:yjc/spring/dao/database.properties"/>
+	
+	<bean id = "sqlMapClient" class = "org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name = "configLocation" value = "classpath:yjc/spring/dao/SqlMapConfig.xml"/>
+		<property name = "dataSource" ref = "dataSource"/>
+	</bean>
+	
+	<bean id = "dataSource" class = "org.apache.commons.dbcp.BasicDataSource">
+		<property name = "driverClassName" value = "${jdbc.driverClassName}"/>
+		<property name = "url" value = "${jdbc.url}"/>
+		<property name = "username" value = "${jdbc.username}"/>
+		<property name = "password" value = "${jdbc.password}"/>
+		<property name = "maxActive" value = "${jdbc.maxActive}"/>
+		<property name = "maxWait" value = "${jdbc.maxWait}"/>
+		<property name = "poolPreparedStatements" value = "${jdbc.poolPreparedStatements}"/>
+	</bean>
+	
+	
+	<bean id = "memberDao" class = "yjc.spring.dao.IbatisMemberDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	
+	<bean id = "boardDao" class = "yjc.spring.dao.IbatisBoardDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	
+	<bean id = "commentDao" class = "yjc.spring.dao.IbatisCommentDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	<bean id = "canvasDao" class = "yjc.spring.dao.IbatisCanvasDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	<bean id = "requestDao" class = "yjc.spring.dao.IbatisRequestDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	<bean id = "IbatisD_shop" class = "yjc.spring.dao.IbatisD_shop">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+		<bean id = "IbatisProductDao" class = "yjc.spring.dao.IbatisProductDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	<bean id = "IbatisDesignerDao" class = "yjc.spring.dao.IbatisDesignerDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	<bean id = "IbatisPurchaseDao" class = "yjc.spring.dao.IbatisPurchaseDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	<bean id = "IbatisCartDao" class = "yjc.spring.dao.IbatisCartDao">
+		<property name="sqlMapClient" ref = "sqlMapClient"/>
+	</bean>
+	
+	
+	<!-- 메시지 파일은 여러개가 있을 수 있다. Spring 109 page 참조 -->
+	<bean id = "messageSource" class = "org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value = "ErrorMessage"/>
+	</bean>
+
+</beans>

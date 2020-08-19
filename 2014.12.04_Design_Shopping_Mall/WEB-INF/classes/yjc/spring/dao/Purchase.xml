@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "Purchase">
+   <typeAlias alias = "Purchase" type = "yjc.spring.bean.Purchase"/>
+   <typeAlias alias = "Member" type = "yjc.spring.bean.Member"/>
+   	
+   <insert id="Insert_Purchase" parameterClass ="Purchase">
+   	  INSERT INTO purchase (p_num,p_amount,p_price,pro_num,mem_num,p_date,p_address,p_post_num,p_phone_num,p_status,p_receiver,des_num)
+   	  values (PHS_SEQ.nextval,#p_amount#,#p_price#,#pro_num#,#mem_num#,#p_date#,#p_address#,#p_post_num#,#p_phone_num#,#p_status#,#p_receiver#,#des_num#)
+   </insert>
+  
+	<select id = "Purchase_list" parameterClass = "Integer" resultClass = "purchase" >
+	select * from purchase phs, product p,designer d,member m where
+    phs.pro_num=p.pro_num and p.des_num=d.des_num and d.mem_num=m.mem_num and phs.mem_num=#mem_num#
+    order by phs.p_num desc
+    </select>
+    
+    <select id = "Purchase_view" parameterClass = "Integer" resultClass = "purchase" >
+	 select * from product p, purchase phs ,designer d where phs.pro_num=p.pro_num and phs.des_num=d.des_num and phs.p_num=#p_num#
+    </select>
+   	
+   	 <select id = "Purchase_select" parameterClass = "purchase" resultClass = "purchase" >
+	  	select * from purchase phs, product p,designer d,member m where
+    phs.pro_num=p.pro_num and p.des_num=d.des_num and d.mem_num=m.mem_num and phs.mem_num=#mem_num# and $search_category$ like '%'||#search_content#||'%'
+    order by phs.p_num desc
+    </select>
+   
+    <update id = "update_purchase" parameterClass = "purchase">
+     update purchase set p_address=#p_address#,p_receiver=#p_receiver#,p_post_num=#p_post_num#,p_phone_num=#p_phone_num#  where p_num=#p_num#
+   </update>
+   
+    <delete id = "purchase_delete" parameterClass = "Integer">
+      delete from purchase where p_num = #p_num#
+   </delete>
+   
+   <select id = "if_my_sell_count" parameterClass="Integer" resultClass="Integer">
+   	  select count(*) from purchase where des_num = #des_num# and p_status = '거래완료'
+   </select>
+   
+   <select id = "my_sell_count" parameterClass="Integer" resultClass="Integer">
+   	  select sum(p_amount) from purchase where des_num = #des_num# and p_status = '거래완료'
+   </select>
+   
+   <select id = "if_my_buy_count" parameterClass="Integer" resultClass="Integer">
+   	  select count(*) from purchase where mem_num = #mem_num#
+   </select>
+   
+   <select id = "my_buy_count" parameterClass="Integer" resultClass="Integer">
+   	  select sum(p_amount) from purchase where mem_num = #mem_num#
+   </select>
+   
+   <update id = "update_purchase2" parameterClass = "purchase">
+     update purchase set p_status=#p_status# where p_num=#p_num#
+   </update>
+   
+   
+   
+   </sqlMap>

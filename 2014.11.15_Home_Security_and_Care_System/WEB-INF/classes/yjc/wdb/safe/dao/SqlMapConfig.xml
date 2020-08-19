@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+	
+<sqlMapConfig>
+	<sqlMap resource="yjc/wdb/safe/dao/member.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/children.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/message.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/female.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/cafe.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/cafeboard.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/scheduler.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/police.xml"/>
+	<sqlMap resource="yjc/wdb/safe/dao/Gcm.xml"/>
+	
+</sqlMapConfig>
+

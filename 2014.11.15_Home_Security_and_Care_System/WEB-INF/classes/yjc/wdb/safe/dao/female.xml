@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="female">
+	<typeAlias alias="female" type="yjc.wdb.safe.bean.FemaleBean"/>
+
+	<insert id="f_insertBoard" parameterClass="female">
+		insert into safe_board(num,id,t_phone1,t_phone2,t_phone3,content,category) values (safe_seq.nextval,#id#,#t_phone1#,#t_phone2#,#t_phone3#,#content#,4)
+	</insert>
+	<insert id="t_insertTaxi" parameterClass="female">
+		insert into safe_board(num,phone, car_num, crime_time,drive,notice,reg_date,category) values(safe_seq.nextval, #phone#, #car_num#,#crime_time#,#drive#,#notice#,to_date(sysdate,'yyyy-mm-dd hh24:mi:ss'),4)
+	</insert>
+
+	
+	<select id="t_findTaxi" resultClass="female">
+		select phone,car_num, crime_time, drive, notice from safe_board where category=4 order by num
+	</select>
+	
+	<select id="policeList" resultClass="female" parameterClass="String">
+	select * from safe_board where num = (select max(num) from safe_board where category = 20 and  id = #id#)
+	</select>
+	
+	<insert id= "m_policeAdd" parameterClass="female">
+		insert into safe_board(num,crime_time, content,id,e_id,phone,category,reg_date) values (safe_seq.nextval,#crime_time#,#content#,#id#,#e_id#,#phone#,20,sysdate)
+	</insert> 
+	
+	
+	<select id="t_oneWeek" resultClass="female">
+		select * from safe_board where category=4 and reg_date > sysdate - 7
+	</select>
+	
+	<select id="t_oneMonth" resultClass="female">
+		select * from safe_board where category=4 and reg_date > sysdate - 30
+	</select>
+	
+	<select id="t_threeMonth" resultClass="female">
+		select * from safe_board where category=4 and reg_date > sysdate - 90
+	</select>
+	
+	 <insert id= "m_nfc" parameterClass="female">
+      insert into safe_board(num, phone, car_num,crime_time,drive, notice, category) values (safe_seq.nextval,#phone#,#car_num#,#crime_time#,#drive#,#notice#,4)
+  	 </insert> 
+  	     <update id="deleteFemale" parameterClass="String">
+      update safe_board set category=15 where category=20 and id=#id#
+   </update>
+   <insert id="policeReview" parameterClass="female">
+		insert into safe_board(num,id,e_id,subject,content,s_star,reg_date,readcount,category) 
+					values(safe_seq.nextval,#id#,#e_id#,#subject#,#content#,#s_star#,sysdate,#readcount#,#category#)
+	</insert>
+<select id="t_selectById" resultClass="female" parameterClass="String">
+      select * from safe_board where category = 4 and id=#id#
+</select>
+    <update id="updateFemale" parameterClass="female">
+      update safe_board set t_phone1=#t_phone1#, t_phone2=#t_phone2#,t_phone3=#t_phone3#,content=#content# where id=#id#
+   </update>
+   	<select id="getPolice" resultClass="female">
+		select * from safe_board where e_id=#name# and category=20
+	</select>
+	 	<select id="sysListOk" resultClass="female">
+		select * from safe_board where e_id=#name# and category=22
+	</select>
+		<select id="getPolice2" resultClass="female">
+		select * from safe_board where num=(select max(num) from safe_board where category = 20 and  id = #id#)
+	</select>
+		<select id="sysList" resultClass="female">
+		select * from safe_board where id=#id# and category=15 and reg_date is not null and reg_date > sysdate - 30
+	</select>
+		<select id="getPSelectolice" resultClass="female">
+		select * from safe_board where e_id=#e_id# and category=18
+	</select>
+		<select id="detalire" resultClass="female">
+		select * from safe_board where num=#num# and category=22
+	</select>
+	   <update id="detalireupdate" parameterClass="int">
+      update safe_board set readcount=readcount+1 where category=22 and num=#num#
+   </update>
+	
+
+</sqlMap>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "Member">
+   <typeAlias alias = "Member" type = "yjc.spring.bean.Member"/>
+   <typeAlias alias = "Purchase" type = "yjc.spring.bean.Purchase"/>
+   <typeAlias alias = "Designer" type = "yjc.spring.bean.Designer"/>
+   
+   <delete id = "deleteAllMember">
+      delete from Member
+   </delete>
+   
+   <delete id = "deleteMemberById" parameterClass = "String">
+      delete from Member where mem_id = #mem_id#
+   </delete>
+   
+   <insert id = "insertMember" parameterClass = "Member">
+<!--       INSERT INTO Member(id, name, password, address, phone, email, birthYear, gender, authority) VALUE (#id#, #name#, #password#, #address#, #phone#, #email#, #birthYear#, #gender#, #authority#) -->
+      INSERT INTO Member(mem_id, mem_pw, mem_name, mem_addr, mem_email, mem_img, mem_phone, mem_auth, mem_gender, mem_num, mem_post) VALUES (#mem_id#, #mem_pw#, #mem_name#, #mem_addr#, #mem_email#, #mem_img#, #mem_phone#, #mem_auth#, #mem_gender#, num_seq.nextval, #mem_post#)
+   </insert>
+   
+   <insert id = "promotion" parameterClass = "Member">
+      INSERT INTO Designer(mem_num, des_num) VALUES (#mem_num#, des_seq.nextval)
+   </insert>
+   
+   <insert id = "demotion" parameterClass = "Member">
+      DELETE Designer where mem_num = #mem_num#
+   </insert>
+   
+   <update id="logincheck" parameterClass="Member">
+   	  UPDATE Member SET  login_check=login_check+1, last_login = #last_login# WHERE mem_id = #mem_id#
+   </update>
+   
+   <update id="logincheck_but" parameterClass="Member">
+   	  UPDATE Member SET last_login = #last_login# WHERE mem_id = #mem_id#
+   </update>
+   
+   <select id = "ifDesigner" parameterClass = "Member" resultClass = "int">
+      SELECT count(*) FROM Designer WHERE mem_num = #mem_num#
+   </select>
+   
+   <select id = "selectById" parameterClass = "String" resultClass = "Member">
+      SELECT * FROM Member WHERE mem_id = #mem_id#
+   </select>
+   
+   <select id = "selectAllMember"  resultClass = "Member">
+      SELECT * FROM Member ORDER BY mem_id
+   </select>
+   
+   <select id = "findDesigners"  resultClass = "Member">
+      SELECT * FROM Member where mem_auth ='1' ORDER BY mem_id 
+   </select>
+
+<!--    <select id ="findMaxId" resultClass="int"> -->
+<!--    	  SELECT max(mem_id) from Member  -->
+<!--    </select> -->
+
+   <update id = "updateMemberById" parameterClass = "Member">
+      UPDATE Member SET mem_name=#mem_name#, mem_pw=#mem_pw#, mem_addr=#mem_addr#, 
+      mem_email=#mem_email#, mem_img=#mem_img#, mem_phone=#mem_phone#, mem_auth=#mem_auth#, 
+      mem_gender=#mem_gender#, mem_post=#mem_post# WHERE mem_id = #mem_id#
+   </update>
+   
+    <select id ="selectMaxMem_Num" resultClass="int" >
+   	  SELECT max(mem_num) from Member
+   </select>
+   
+   <select id ="selectCountMem_Num" resultClass="int" >
+      SELECT count(mem_num) from Member
+   </select>
+   
+   <select id = "getlogincheck" parameterClass="int" resultClass = "int">
+      SELECT login_check FROM Member where mem_num = #mem_num# 
+   </select>
+   
+   <select id = "ps_list" resultClass = "Member">
+     SELECT d.mem_num,d.des_num,m.mem_id, cnt.p_count FROM 
+	 (SELECT d.des_num ,sum(p_amount) p_count FROM Purchase p, Designer d WHERE p.des_num=d.des_num AND p.p_status = '거래완료' GROUP BY d.des_num) cnt, Designer d, Member m
+	  WHERE cnt.des_num=d.des_num AND d.mem_num=m.mem_num 
+	  ORDER BY p_count DESC
+   </select>
+   
+   
+</sqlMap>

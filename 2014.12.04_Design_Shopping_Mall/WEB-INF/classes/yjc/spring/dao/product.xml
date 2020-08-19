@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "product">
+   <typeAlias alias = "product" type = "yjc.spring.bean.product"/>
+   	<select id = "selectAllTop_product" parameterClass = "int" resultClass = "product">
+      SELECT * FROM product
+      WHERE pro_category = #pro_category# order by pro_num desc
+   </select>
+   
+   <select id = "select_view_product" parameterClass = "int" resultClass = "product">
+     SELECT * FROM product p,designer d,member m where p.des_num=d.des_num and d.mem_num=m.mem_num and pro_num= #pro_num#
+   </select>
+  
+   <select id = "new_product_select" parameterClass = "int" resultClass = "product">
+       SELECT * FROM product
+      WHERE  pro_category = #pro_category# order by pro_num  desc
+   </select>
+   
+   
+   <insert id="Insert_Product" parameterClass ="product">
+   	  INSERT INTO product (pro_num,pro_name,pro_price,pro_img,pro_img_2,pro_img_3,pro_size,pro_amount,pro_date,des_num,pro_explain,pro_category)
+   	  values (pro_seq.nextval,#pro_name#,#pro_price#,#pro_img#,#pro_img_2#,#pro_img_3#,#pro_size#,#pro_amount#,#pro_date#,#des_num#,#pro_explain#,#pro_category#)
+   </insert>
+   
+   
+   <select id = "des_select" parameterClass = "String" resultClass = "Integer">
+       SELECT des_num FROM product
+      WHERE  pro_num = #pro_num#
+   </select>
+   
+    <update id = "Update_amount" parameterClass = "product">
+     update product set pro_amount=pro_amount-#minus_amount# where pro_num=#pro_num#
+   </update>
+   
+   <update id = "Update_amount2" parameterClass = "product">
+     update product set pro_amount=pro_amount+#plus_amount# where pro_num=#pro_num#
+   </update>
+    
+   
+   <update id = "update_product" parameterClass = "product">
+     update product set pro_name=#pro_name#,pro_price=#pro_price#,pro_size=#pro_size#,pro_amount=#pro_amount#,pro_date=#pro_date#,des_num=#des_num#,pro_explain=#pro_explain#,pro_category=#pro_category# where pro_num=#pro_num#
+   </update>
+   
+   <update id = "update_product_img" parameterClass = "product">
+     update product set pro_img=#pro_img# where pro_num=#pro_num#
+   </update>
+   
+   <update id = "update_product_img2" parameterClass = "product">
+     update product set pro_img_2=#pro_img_2# where pro_num=#pro_num#
+   </update>
+   
+   <update id = "update_product_img3" parameterClass = "product">
+     update product set pro_img_3=#pro_img_3# where pro_num=#pro_num#
+   </update>
+   
+   
+  <select id = "Best_Product_select" resultClass = "product">
+   (SELECT g.pro_num,p.pro_name,p.pro_price,p.pro_img,p.pro_category FROM
+   	(
+   		select phs.pro_num,count(phs.pro_num)from purchase phs group by phs.pro_num order by count(phs.pro_num) desc
+   	) 	g, product p where p.pro_num=g.pro_num
+   and ROWNUM &lt;= 4)
+   </select>
+   <select id = "search_product" parameterClass = "product" resultClass = "product" remapResults="true" >
+ 	select * from product where pro_category=#pro_category# and $search_category$ like '%'||#search_content#||'%' order by pro_num desc
+   </select>
+   <delete id = "delete_product" parameterClass = "Integer">
+      delete from product where pro_num = #pro_num#
+   </delete>
+   <select id = "my_product_count" parameterClass="Integer" resultClass="Integer">
+   	  select count(*) from product where des_num = #des_num#
+   </select>
+   </sqlMap>

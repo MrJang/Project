@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "Board">
+   <typeAlias alias = "Board" type = "yjc.spring.bean.Board"/>
+   <typeAlias alias = "Member" type = "yjc.spring.bean.Member"/>
+    
+   <delete id = "deleteBoardByNum" parameterClass = "int">
+      delete from Board where bod_num = #bod_num#
+   </delete>
+   <insert id = "insertBoard" parameterClass = "Board">
+<!--       INSERT INTO Board(num, subject, reg_date, readcount, content, ip, writer, filename) VALUE (#num#, #subject#, #reg_date#, #readcount#, #content#, #ip#, #writer#, #filename#) -->
+      INSERT INTO Board(bod_num, bod_title, bod_content, bod_recommend, bod_readcount, bod_date, bod_img, bod_category, cmm_num, mem_id, bod_des_category, bod_img_category, bod_price) VALUES (num_seq.nextval , #bod_title#, #bod_content#, #bod_recommend#, #bod_readcount#, #bod_date#, #bod_img#, #bod_category#, #cmm_num#, #mem_id#, #bod_des_category#, #bod_img_category#, #bod_price#)
+   </insert>
+   <select id = "selectByNum" parameterClass = "int" resultClass = "Board">
+      SELECT * FROM Board 
+      WHERE bod_num = #bod_num#
+   </select>
+   <select id = "selectAllBoard"  resultClass = "Board">
+      SELECT * FROM Board ORDER BY bod_num desc
+   </select>
+   <select id = "selectBoard1"  resultClass = "Board">
+      SELECT * FROM Board WHERE bod_category = '0' ORDER BY bod_num desc
+   </select>
+   <select id = "selectBoard2"  resultClass = "Board">
+      SELECT * FROM Board WHERE bod_category = '1' ORDER BY bod_num desc
+   </select>
+   <select id = "selectBoard3"  resultClass = "Board">
+      SELECT * FROM Board WHERE bod_category = '2' ORDER BY bod_num desc
+   </select>
+   <select id = "selectAllPopular"  resultClass = "Board">
+      SELECT * FROM Board ORDER BY bod_readcount desc 
+   </select>
+   <select id ="selectMaxNum" resultClass="int" >
+   	  SELECT max(bod_num) from Board
+   </select>
+   <select id ="selectCountNum" resultClass="int" >
+      SELECT count(bod_num) from Board
+   </select>
+   <select id ="my_article1_count" parameterClass = "Member" resultClass="int" >
+      SELECT count(*) FROM Board WHERE mem_id = #mem_id#
+   </select>
+   <select id ="my_article2_count" parameterClass = "Member" resultClass="int" >
+      SELECT count(*) FROM Board WHERE mem_id = #mem_id#
+   </select>
+   <update id = "updateBoardByNum" parameterClass = "Board">
+      UPDATE Board SET bod_title = #bod_title#, bod_content = #bod_content#, bod_date = #bod_date#, bod_img = #bod_img#, bod_category = #bod_category#, bod_des_category = #bod_des_category#, bod_price = #bod_price#
+      WHERE bod_num = #bod_num#
+   </update>
+   <update id = "updateReadCount" parameterClass = "int">
+      UPDATE Board SET bod_readcount=bod_readcount+1 
+      WHERE bod_num = #bod_num#
+   </update>
+   <select id = "selectTop1"  resultClass = "Board">
+      SELECT * FROM Board WHERE bod_category = '0' AND bod_des_category = '1' ORDER BY bod_num desc
+   </select>
+   <select id = "selectBottom1"  resultClass = "Board">
+      SELECT * FROM Board WHERE bod_category = '0' AND bod_des_category = '2' ORDER BY bod_num desc
+   </select>
+   <select id = "selectAcce1"  resultClass = "Board">
+      SELECT * FROM Board WHERE bod_category = '0' AND bod_des_category = '3' ORDER BY bod_num desc
+   </select>
+   <select id = "selectEtc1"  resultClass = "Board">
+      SELECT * FROM Board WHERE bod_category = '0' AND bod_des_category = '4' ORDER BY bod_num desc
+   </select>
+   
+   <select id = "get_bod_img_by_bod_num"  resultClass = "String">
+      SELECT bod_img FROM Board WHERE bod_num = #bod_num#
+   </select>
+   
+   
+   
+   
+   
+  
+   
+   
+   
+</sqlMap>

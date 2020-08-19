@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+   
+   <sqlMap namespace = "Cart">
+   <typeAlias alias = "Cart" type = "yjc.spring.bean.Cart"/>
+   
+   
+   <insert id="Insert_Cart" parameterClass ="Cart">
+   	  INSERT INTO Cart (cart_num,pro_num,mem_num)
+   	  values (cart_seq.nextval,#pro_num#,#mem_num#)
+   </insert>
+   
+   <select id = "cart_list" parameterClass="Integer" resultClass = "product">
+     select * from product p,cart c where p.pro_num=c.pro_num and c.mem_num=#mem_num#
+   	order by c.cart_num desc
+   </select>
+   
+   
+   <delete id = "cart_delete" parameterClass = "Integer">
+      delete from cart where cart_num = #cart_num#
+   </delete>
+   </sqlMap>

@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+<!-- 	<definition name="*/*" extends="default_layout"> -->
+<!--         <put-attribute name="body" value="/WEB-INF/show/{1}/{2}.jsp" /> -->
+<!--     </definition> -->
+
+	<definition name="main" template="/WEB-INF/layout/l_main.jsp">
+<!--  		<put-attribute name="search" value="/WEB-INF/show/search.jsp" /> -->
+<!--  		<put-attribute name="userForm2" value="/WEB-INF/show/userForm2.jsp" /> -->
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+		<put-attribute name="userForm" value="/WEB-INF/show/main/userForm.jsp" />
+		<put-attribute name="recent" value="/WEB-INF/show/main/recent.jsp" />
+		<put-attribute name="popular" value="/WEB-INF/show/main/popular.jsp" />
+		<put-attribute name="slide" value="/WEB-INF/show/main/index.html" />
+		<put-attribute name="slide2" value="/WEB-INF/show/main/aa.html" />
+	</definition>
+	
+	
+	
+	<definition name="m_main" template="/WEB-INF/layout/l_m_main.jsp">
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+		<put-attribute name="userForm" value="/WEB-INF/show/main/userForm.jsp" />
+		<put-attribute name="recent" value="/WEB-INF/show//mainrecent.jsp" />
+		<put-attribute name="popular" value="/WEB-INF/show/main/popular.jsp" />		
+	</definition>
+	
+	<definition name="addMember" template="/WEB-INF/layout/l_member.jsp">
+<!-- 		<put-attribute name="userForm2" value="/WEB-INF/show/userForm2.jsp" /> -->
+<!-- 		<put-attribute name="search" value="/WEB-INF/show/search.jsp" /> -->
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/member/addMemberForm.jsp" />
+	</definition>
+	
+	<definition name="updateMember" extends="p_info">	
+		<put-attribute name="body" value="/WEB-INF/show/member/updateMemberForm.jsp" />
+	</definition>
+	
+	<definition name="addMemberResult" extends="addMember">
+		<put-attribute name="body" value="/WEB-INF/show/member/addMemberResult.jsp" />
+	</definition>
+	
+<!-- 	<definition name="deleteMember" extends="addMember"> -->
+<!-- 		<put-attribute name="body" value="/WEB-INF/show/member/memberList.jsp" /> -->
+<!-- 	</definition> -->
+	
+	<definition name="memberList" extends="addMember">
+		<put-attribute name="body" value="/WEB-INF/show/member/memberList.jsp" />
+	</definition>
+	
+	<definition name="getMember" extends="addMember">
+		<put-attribute name="body" value="/WEB-INF/show/member/memberInfo.jsp" />
+	</definition>
+	
+	<definition name="reject" template="/WEB-INF/layout/l_reject.jsp">
+		<put-attribute name="reject" value="/WEB-INF/show/etc/noAuth.jsp" />
+	</definition>
+	<definition name="req_reject" template="/WEB-INF/layout/l_reject.jsp">
+		<put-attribute name="reject" value="/WEB-INF/show/etc/req_noAuth.jsp" />
+	</definition>
+	
+	<definition name="board1" template="/WEB-INF/layout/l_board.jsp">
+<!-- 		<put-attribute name="userForm2" value="/WEB-INF/show/userForm2.jsp" /> -->
+<!-- 		<put-attribute name="search" value="/WEB-INF/show/search.jsp" /> -->
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+		<put-attribute name="sub" value="/WEB-INF/show/board1/articleList1_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/board1/articleList1.jsp" />
+	</definition>
+	
+	<definition name="insertArticle1" extends="board1">
+		<put-attribute name="body" value="/WEB-INF/show/board1/addArticleForm1.jsp" />
+	</definition>
+	
+	<definition name="updateArticle1" extends="addMember">
+		<put-attribute name="body" value="/WEB-INF/show/board1/updateBoardForm1.jsp" />
+	</definition>
+	
+	<definition name="getArticle1" extends="board1">
+		<put-attribute name="body" value="/WEB-INF/show/board1/articleInfo1.jsp" />
+	</definition>
+	
+	<definition name="board2" template="/WEB-INF/layout/l_board2.jsp">
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+<!-- 		<put-attribute name="sub" value="/WEB-INF/show/board2/articleList2_sub.jsp" /> -->
+		<put-attribute name="body" value="/WEB-INF/show/board2/articleList2.jsp" />
+	</definition>
+	
+	<definition name="insertArticle2" extends="board2">
+		<put-attribute name="body" value="/WEB-INF/show/board2/addArticleForm2.jsp" />
+	</definition>
+	
+	<definition name="updateArticle2" extends="addMember">
+		<put-attribute name="body" value="/WEB-INF/show/board2/updateBoardForm2.jsp" />
+	</definition>
+	
+	<definition name="getArticle2" extends="board2">
+		<put-attribute name="body" value="/WEB-INF/show/board2/articleInfo2.jsp" />
+	</definition>
+	
+	
+	<definition name="info" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/info/info_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/info/info.jsp" />
+	</definition>
+	
+<!-- 	<definition name="fileUpload_submit" extends="board1"> -->
+<!-- 		<put-attribute name="body" value="/WEB-INF/show/fileUpload_submit.jsp" /> -->
+<!-- 	</definition> -->
+	
+<!-- 	<definition name="fileUpload_result" extends="board1"> -->
+<!-- 		<put-attribute name="body" value="/WEB-INF/show/fileUpload_result.jsp" /> -->
+<!-- 	</definition> -->
+	
+	<definition name="intro" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/intro/intro_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/intro/intro.jsp" />
+	</definition>
+	
+	<definition name="notice" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/main/notice_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/main/notice.jsp" />
+	</definition>
+	
+	<definition name="intro1" extends="intro">
+		<put-attribute name="body" value="/WEB-INF/show/intro/intro1.jsp" />
+	</definition>
+	
+	<definition name="intro2" extends="intro">
+		<put-attribute name="body" value="/WEB-INF/show/intro/intro2.jsp" />
+	</definition>
+	
+	<definition name="req_main" template="/WEB-INF/layout/l_req.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/request/req_main.jsp" />
+	</definition>
+	
+	<definition name="req_info" extends="req_main">
+		<put-attribute name="body" value="/WEB-INF/show/request/req_info.jsp" />
+	</definition>
+	
+	<definition name="my_req_info" extends="req_main">
+		<put-attribute name="body" value="/WEB-INF/show/request/my_req_info.jsp" />
+	</definition>
+	
+	<definition name="req_1" extends = "req_main">
+		<put-attribute name="body" value="/WEB-INF/show/request/req_1.jsp" />
+	</definition>
+	
+	<definition name="req_2" extends = "req_main">
+		<put-attribute name="body" value="/WEB-INF/show/request/req_2.jsp" />
+	</definition>
+	
+	<definition name="req_list" template="/WEB-INF/layout/l_req.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/request/req_list.jsp" />
+	</definition>
+	
+	<definition name="req_receive" extends="req_main">
+		<put-attribute name="body" value="/WEB-INF/show/request/req_receive.jsp" />
+	</definition>
+	
+	
+	<definition name="req_Dmain" template="/WEB-INF/layout/l_req3.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/request_d/req_Dmain.jsp" />
+	</definition>
+	
+	<definition name="req_Dinfo" extends = "req_D1">
+		<put-attribute name="body" value="/WEB-INF/show/request_d/req_Dinfo.jsp" />
+	</definition>
+	
+	<definition name="my_req_Dinfo" extends = "req_D1">
+		<put-attribute name="body" value="/WEB-INF/show/request_d/my_req_Dinfo.jsp" />
+	</definition>
+	
+	<definition name="req_D1" template="/WEB-INF/layout/l_req2.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/request_d/req_D1.jsp" />
+	</definition>
+	
+	<definition name="req_D2" extends = "req_D1">
+		<put-attribute name="body" value="/WEB-INF/show/request_d/req_D2.jsp" />
+	</definition>
+	
+	<definition name="req_Dlist" extends = "req_D1">
+		<put-attribute name="body" value="/WEB-INF/show/request_d/req_Dlist.jsp" />
+	</definition>
+	
+	<definition name="req_Dreceive" extends="req_D1">
+		<put-attribute name="body" value="/WEB-INF/show/request_d/req_Dreceive.jsp" />
+	</definition>
+	
+	
+	
+	<definition name="p_info" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/info/p_info_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/info/p_info.jsp" />
+	</definition>
+	
+	<definition name="canvas" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/CanvasTest2.jsp" />
+	</definition>
+	
+	<definition name="my_capture" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_capture.jsp" />
+	</definition>
+	
+	<definition name="my_commission" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_commission.jsp" />
+	</definition>
+	
+	<definition name="my_canvas" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_canvas.jsp" />
+	</definition>
+	
+	<definition name="my_design" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/info/p_info_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_design.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	<definition name="addcanvas" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_design_write.jsp" />
+	</definition>
+	
+	<definition name="my_design_write" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/info/p_info_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_design_write.jsp" />
+	</definition>
+	
+	<definition name="my_design_update" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/info/p_info_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_design_update.jsp" />
+	</definition>
+	
+	<definition name="getDesign" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/info/p_info_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/canvas_info.jsp" />
+	</definition>
+	
+	<definition name="getCanvas" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/canvas_info.jsp" />
+	</definition>
+	
+	<definition name="canvas1" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/canvas_capture.jsp" />
+	</definition>
+	
+	<definition name="canvas2" extends="board1">
+		<put-attribute name="sub" value="/WEB-INF/show/canvas/canvas_sub.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/canvas/my_commission.jsp" />
+	</definition>
+	
+	<definition name="select_achivement" template="/WEB-INF/layout/l_achivement.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/achivement/achivement.jsp" />
+	</definition>
+	
+	<definition name="insert_notice" extends="board1">
+		<put-attribute name="body" value="/WEB-INF/show/intro/insert_notice.jsp" />
+		<put-attribute name="sub" value="/WEB-INF/show/intro/intro_sub.jsp" />
+	</definition>
+	
+	<definition name="get_intro" extends="board1">
+		<put-attribute name="body" value="/WEB-INF/show/intro/notice_info.jsp" />
+		<put-attribute name="sub" value="/WEB-INF/show/intro/intro_sub.jsp" />
+	</definition>
+	<definition name="update_intro" extends="board1">
+		<put-attribute name="body" value="/WEB-INF/show/intro/update_intro.jsp" />
+		<put-attribute name="sub" value="/WEB-INF/show/intro/intro_sub.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+<!-- 디자인 샵 -->
+	<definition name="d_shop" template = "/WEB-INF/layout/d_shop_l.jsp">
+<!-- 		<put-attribute name="topheaderleft" value="/WEB-INF/show/main/logo.jsp" /> -->
+<!-- 		<put-attribute name="bottomheadercenter" value="/WEB-INF/show/main/menuForm.jsp" /> -->
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_body.jsp" />
+		<put-attribute name="d_header" value="/WEB-INF/show/d_shop/d_header.jsp" />
+		<put-attribute name="d_sub" value="/WEB-INF/show/d_shop/d_sub.jsp" />
+		<put-attribute name="footer" value="footer" />
+	</definition>
+<!-- 	디자인 샵 대문 -->
+	<definition name="d_shop_main" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_shop_main.jsp" />
+	</definition>
+	<!-- 디자인 샵 -->
+	<definition name="d_shop" template = "/WEB-INF/layout/d_shop_l.jsp">
+<!-- 		<put-attribute name="topheaderleft" value="/WEB-INF/show/main/logo.jsp" /> -->
+<!-- 		<put-attribute name="bottomheadercenter" value="/WEB-INF/show/main/menuForm.jsp" /> -->
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+<!-- 		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_body.jsp" /> -->
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_manager.jsp" />
+		<put-attribute name="d_header" value="/WEB-INF/show/d_shop/d_header.jsp" />
+		<put-attribute name="d_sub" value="/WEB-INF/show/d_shop/d_sub.jsp" />
+		<put-attribute name="footer" value="footer" />
+	</definition>
+<!-- 	공지&QnA -->
+	<definition name="d_gongji" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_gongji.jsp" />
+	</definition>
+	
+	<definition name="d_gongji_insert" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_gongji_insert.jsp" />
+	</definition>
+	
+	<definition name="d_gongji_info" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_gongji_info.jsp" />
+	</definition>
+	<definition name="d_gongji_upDate" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_gongji_upDate.jsp" />
+	</definition>
+<!-- 	쇼핑 -->
+	<definition name="d_shopping" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_shopping.jsp" />
+	</definition>
+	<definition name="d_shopping_cate" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_shopping_cate.jsp" />
+	</definition>
+	<definition name="d_others" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/shop/others.jsp" />
+	</definition>
+	
+<!-- 	qna -->
+	<definition name="d_qna" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_qna.jsp" />
+	</definition>
+<!-- 	샵관리 -->
+	<!-- 	샵관리 -->
+	<definition name="d_manager" extends="d_shop">
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_manager.jsp" />
+		<put-attribute name="d_header" value="/WEB-INF/show/d_shop/d_manager_header.jsp" />
+	</definition>
+		
+	<definition name="d_manager_reg" extends="d_shop">
+		<put-attribute name="d_header" value="/WEB-INF/show/d_shop/d_manager_header.jsp" />
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_manager_reg.jsp" />
+	</definition>
+	<definition name="d_manager_order" extends="d_shop">
+		<put-attribute name="d_header" value="/WEB-INF/show/d_shop/d_manager_header.jsp" />
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_manager_order.jsp" />
+	</definition>
+	<definition name="d_manager_bb" extends="d_shop">
+		<put-attribute name="d_header" value="/WEB-INF/show/d_shop/d_manager_header.jsp" />
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_manager_bb.jsp" />
+	</definition>
+	<definition name="d_manager_sales" extends="d_shop">
+		<put-attribute name="d_header" value="/WEB-INF/show/d_shop/d_manager_header.jsp" />
+		<put-attribute name="d_body" value="/WEB-INF/show/d_shop/d_manager_sales.jsp" />
+	</definition>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+<!-- 쇼핑몰 -->
+	<definition name="shop" template="/WEB-INF/layout/l_shop.jsp">
+		<put-attribute name="logo" value="/WEB-INF/show/main/logo.jsp" />
+		<put-attribute name="menuForm" value="/WEB-INF/show/main/menuForm.jsp" />
+		<put-attribute name="sub_menu" value="/WEB-INF/show/shop/sub_menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/shop/shop_main.jsp" />
+	</definition>
+	<definition name="top_product" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/top_product_list.jsp" />
+	</definition>
+	<definition name="bottoms_product" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/bottoms_product_list.jsp" />
+	</definition>
+	<definition name="accessory_product" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/accessory_product_list.jsp" />
+	</definition>
+	<definition name="others" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/others.jsp" />
+	</definition>
+	<definition name="product_regist" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/product_regist.jsp" />
+	</definition>
+	<definition name="product_view" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/product_view.jsp"/>
+	</definition>
+	<definition name="product_purchase" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/product_purchase.jsp"/>
+	</definition>
+	<definition name="wrong_permission" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/wrong_permission.jsp"/>
+	</definition>
+	<definition name="wrong_permission2" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/wrong_permission2.jsp"/>
+	</definition>
+	<definition name="product_modify" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/product_modify.jsp"/>
+	</definition>
+	<definition name="cart_list" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/cart.jsp"/>
+	</definition>
+	<definition name="customer_purchase_list" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/customer_purchase_list.jsp"/>
+	</definition>
+	<definition name="purchase_view" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/purchase_view.jsp"/>
+	</definition>
+	<definition name="purchase_modify" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/purchase_modify.jsp"/>
+	</definition>
+		<definition name="product_not_exist" extends="shop">
+		<put-attribute name="body" value="/WEB-INF/show/shop/product_not_exist.jsp"/>
+	</definition>
+<!-- 쇼핑몰 -->
+
+
+
+
+
+<!-- 모바일 웹 -->
+	<!-- 메인 -->
+	<definition name="app_main" template="/WEB-INF/layout/app_l_main.jsp">
+		<put-attribute name="slide" value="/WEB-INF/show/app_main/app_index.html" />
+		<put-attribute name="userForm" value="/WEB-INF/show/app_main/app_userForm.jsp" />	
+	</definition>
+	
+	<definition name="app_board" template="/WEB-INF/layout/app_l_board.jsp">
+<!-- 		<put-attribute name="userForm2" value="/WEB-INF/show/userForm2.jsp" /> -->
+<!-- 		<put-attribute name="search" value="/WEB-INF/show/search.jsp" /> -->
+		<put-attribute name="body" value="/WEB-INF/show/app_board/app_articleList1.jsp" />
+	</definition>
+	
+	<!-- 업로드 -->
+	<definition name="app_my_capture" extends="app_board">
+		<put-attribute name="CapUpdate" value="/WEB-INF/show/canvas/app_my_design_write.jsp" />
+		<put-attribute name="body" value="/WEB-INF/show/app_capture/app_my_capture.jsp" />	
+	</definition>
+	
+	<definition name="app_getCanvas" extends="app_board">
+		<put-attribute name="body" value="/WEB-INF/show/app_capture/app_canvas_info.jsp" />
+	</definition>
+	
+	<definition name="app_reject" template="/WEB-INF/layout/l_reject.jsp">
+		<put-attribute name="reject" value="/WEB-INF/show/etc/noAuth.jsp" />
+	</definition>
+	
+	<!-- 디자인 보드 -->
+	<definition name="app_insertArticle" extends="app_board">
+		<put-attribute name="body" value="/WEB-INF/show/app_board/app_addArticleForm.jsp" />
+	</definition>
+	
+	<definition name="app_addMember" template="/WEB-INF/layout/app_l_member.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/member/app_addMemberForm.jsp" />
+	</definition>
+	
+	<definition name="app_updateArticle" extends="app_board">
+		<put-attribute name="body" value="/WEB-INF/show/app_board/app_updateBoardForm.jsp" />
+	</definition>
+	<definition name="app_getArticle" extends="app_board">
+		<put-attribute name="body" value="/WEB-INF/show/app_board/app_articleInfo.jsp" />
+	</definition>
+	<definition name="app_free_board2" template="/WEB-INF/layout/app_l_board.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/app_free_board/app_articleList2.jsp" />
+	</definition>
+	<definition name="app_free_insertArticle2" extends="app_free_board2">
+		<put-attribute name="body" value="/WEB-INF/show/app_free_board/app_addArticleForm2.jsp" />
+	</definition>
+	
+	<definition name="app_free_addMember2" template="/WEB-INF/layout/app_l_member.jsp">
+		<put-attribute name="body" value="/WEB-INF/show/member/app_addMemberForm.jsp" />
+	</definition>
+	
+	<definition name="app_free_updateArticle2" extends="app_free_board2">
+		<put-attribute name="body" value="/WEB-INF/show/app_free_board/app_updateBoardForm2.jsp" />
+	</definition>
+	
+	<definition name="app_free_getArticle2" extends="app_free_board2">
+		<put-attribute name="body" value="/WEB-INF/show/app_free_board/app_articleInfo2.jsp" />
+	</definition>
+
+	
+</tiles-definitions>
