@@ -12,7 +12,7 @@
 -"의류 디자인 전자상거래"의 진흥을 위한 쇼핑몰
 
 2018.05.20_Secure_Chat_Program 
--"보안성이 뛰어난 채팅 프로그램"
+-"보안 채팅 프로그램"
 
 2018.6.20_Labor_Contract_Management_System_Based_On_Blockchain 
 -"블록체인을 활용한 근로 계약서 관리 시스템"
